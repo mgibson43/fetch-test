@@ -8,15 +8,32 @@
 </head>
 <body>
   <img src="#">
+  <input type="text" class="search">
+  <button class="fetch">New Cat</button>
   <script>
     const img = document.querySelector('img');
-    fetch('https://api.giphy.com/v1/gifs/translate?api_key=E6H3T7a1gB2MSFSVI4iXAvj38xbm14iC&s=cats', {mode: 'cors'})
+    const btn = document.querySelector('.fetch');
+    const search = document.querySelector('.search');
+    let searchVal = 'cats';
+    const grabGif = function() {
+      search.value == '' ? searchVal = searchVal : searchVal = search.value;
+      search.value = '';
+      
+      fetch(`https://api.giphy.com/v1/gifs/translate?api_key=E6H3T7a1gB2MSFSVI4iXAvj38xbm14iC&s=${searchVal}`, {mode: 'cors'})
     .then(function(response) {
       return response.json();
     })
     .then(function(response) {
+      console.log(response);
       img.src = response.data.images.original.url;
+    }).catch(function(err) {
+      console.log('No gifs match the search');
     });
+    };
+
+    btn.addEventListener('click', grabGif);
+
+    grabGif();
   </script>
 </body>
 </html>
