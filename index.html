@@ -51,6 +51,7 @@
   <img src="#">
   <input type="text" class="search">
   <button class="fetch">Search</button>
+
   <script>
     const img = document.querySelector('img');
     const btn = document.querySelector('.fetch');
@@ -73,7 +74,12 @@
     };
 
     btn.addEventListener('click', grabGif);
-
+    search.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        grabGif();
+      }
+    });
     grabGif();
   </script>
 </body>
